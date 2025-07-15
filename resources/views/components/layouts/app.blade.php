@@ -8,6 +8,9 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
 </head>
 <body>
+     <div class="text-center my-5">
+        <img src="{{ asset('assets/images/logo.png') }}" alt="logo" width="128px">
+    </div>
     {{ $slot }}
     <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
 </body>
