@@ -1,19 +1,28 @@
 <div class="card p-5">
-    <form>
+    <form wire:submit="create">
 
         <div class="mb-3">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name">
+            <input wire:model="name" type="text" class="form-control" id="name">
+            @error('name')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email">
+            <input wire:model="email" type="email" class="form-control" id="email">
+            @error('email')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="phone">Phone</label>
-            <input type="phone" class="form-control" id="phone">
+            <input wire:model="phone" type="phone" class="form-control" id="phone">
+            @error('phone')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="text-end">
