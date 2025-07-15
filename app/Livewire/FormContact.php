@@ -43,13 +43,16 @@ class FormContact extends Component
             $contact->email = $this->email;
             $contact->phone = $this->phone;
             $contact->save();
-            Log::info("Novo contato " . $this->name . ' - ' . $this->email . ' - ' . $this->phone);
 
+            Log::info("Novo contato " . $this->name . ' - ' . $this->email . ' - ' . $this->phone);
+            
             $this->reset();
             
             $this->success = "Contato cadastrado com sucesso";
 
             DB::commit();
+
+            $this->dispatch('contactAdded');
         } catch(Exception) {
             DB::rollBack();
             $this->error = "Erro ao cadastrar novo contato";
