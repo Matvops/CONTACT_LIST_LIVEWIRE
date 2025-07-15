@@ -43,7 +43,6 @@ class FormContact extends Component
             $contact->email = $this->email;
             $contact->phone = $this->phone;
             $contact->save();
-            throw new Exception();
             Log::info("Novo contato " . $this->name . ' - ' . $this->email . ' - ' . $this->phone);
 
             $this->reset();
