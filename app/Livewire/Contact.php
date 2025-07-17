@@ -9,15 +9,29 @@ use Livewire\WithPagination;
 
 class Contact extends Component
 {
-
     use WithPagination;
+
+    public $search = '';
     
+    private $numberElementsPeerPage = 5;
+
     #[On('contactAdded')]
     public function updateContacts()
     {}
 
     public function render()
     {
-        return view('livewire.contact', ['contacts' => ContactModel::paginate(2)]);
+        $contacts = null;
+
+        if($this->search) {
+            $contacts = ContactModel::where('nome', 'like', "%$this->search%")
+                                        ->orWhere('email', 'like', "%$this->search%")
+                                        ->orWhere('phone',  'like', "%$this->search%")
+                                        ->paginate($this->numberElementsPeerPage);
+        } else {
+            $contacts = ContactModel::paginate($this->numberElementsPeerPage);
+        }
+
+        return view('livewire.contact', ['contacts' => $contacts]);
     }
 }
