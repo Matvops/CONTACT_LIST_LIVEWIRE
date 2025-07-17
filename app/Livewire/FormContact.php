@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+use function Laravel\Prompts\error;
+
 class FormContact extends Component
 {
     #[Validate('required|min:3|max:50')]
@@ -19,10 +21,6 @@ class FormContact extends Component
 
     #[Validate('required|min:9|max:20')]
     public $phone;
-
-    public $error = "";
-
-    public $success = "";
 
     public function create() {
 
@@ -47,15 +45,25 @@ class FormContact extends Component
             Log::info("Novo contato " . $this->name . ' - ' . $this->email . ' - ' . $this->phone);
             
             $this->reset();
-            
-            $this->success = "Contato cadastrado com sucesso";
+
+            throw new Exception();
 
             DB::commit();
-
             $this->dispatch('contactAdded');
+            $this->dispatch(
+                'notification',
+                type: 'success',
+                title: 'Contato cadastrado com sucesso',
+                position: 'center'
+            );
         } catch(Exception) {
             DB::rollBack();
-            $this->error = "Erro ao cadastrar novo contato";
+            $this->dispatch(
+                'notification',
+                type: 'error',
+                title: 'Erro ao cadastrar novo contato',
+                position: 'center'
+            );
         }
     }
 
