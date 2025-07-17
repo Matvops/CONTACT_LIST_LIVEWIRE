@@ -1,8 +1,8 @@
 <div class="card p-5">
-    
-        <h3>NEW CONTACT</h3>
 
-        <hr>
+    <h3>NEW CONTACT</h3>
+
+    <hr>
 
     <form wire:submit="create">
 
@@ -34,25 +34,22 @@
             <button class="btn btn-secondary px-5">Save</button>
         </div>
 
-        @if($error)
-            <div class="alert alert-danger text-center mt-3"
-                x-data="{ show:true }"
-                x-show="show"
-                x-init="setTimeout(() => show = false, 2000)"    
-            >
-                {{ $error }}
-            </div>
-        @endif
+        <script>
 
-        @if($success)
-            <div class="alert alert-success text-center mt-3"
-                x-data="{ show:true }"
-                x-show="show"
-                x-init="setTimeout(() => show = false, 2000)"    
-            >
-                {{ $success }}
-            </div>
-        @endif
+            window.addEventListener('notification', (event) => {
+                
+                let data = event.detail;
+
+                Swal.fire({
+                    icon: data.type,
+                    title: data.title,
+                    position: data.position,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            })
+
+        </script>
 
     </form>
 </div>
